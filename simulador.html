@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador Financiero · Finanzas Pro</title>
+  <link rel="stylesheet" href="STYLE.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">ƒ</div>
+        <span>Finanzas Pro</span>
+      </div>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#intereses">Tipos de interés</a>
+        <a href="index.html#conceptos">Conceptos</a>
+        <a href="index.html#tasas">Tasas</a>
+        <a href="index.html#anualidades">Anualidades</a>
+        <a href="simulador.html">Simulador</a>
+        <a href="index.html#ia">Uso de IA</a>
+      </nav>
+
+      <div class="nav-tools" aria-hidden="true">
+        <span>⌕</span>
+        <span>◯</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ========================================================= -->
+    <!--  TABS DEL SIMULADOR                                        -->
+    <!-- ========================================================= -->
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h2>Simulador financiero integrado</h2>
+          <p>
+            Tres herramientas conectadas: un simulador de intereses que acepta cualquier tasa,
+            un conversor universal de tasas y un simulador de anualidades vencidas con pagos extras.
+            Las tres comparten el mismo motor de conversión.
+          </p>
+        </div>
+      </div>
+
+      <div class="sim-tabs" role="tablist">
+        <button type="button" class="sim-tab active" data-target="simInteres" role="tab">
+          1. Interés simple, compuesto y continuo
+        </button>
+        <button type="button" class="sim-tab" data-target="simConversor" role="tab">
+          2. Conversor universal de tasas
+        </button>
+        <button type="button" class="sim-tab" data-target="simAnualidades" role="tab">
+          3. Anualidades vencidas
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!--  1. SIMULADOR DE INTERÉS (con conversión automática)       -->
+    <!-- ========================================================= -->
+    <section class="panel sim-view" id="simInteres">
+      <div class="section-head">
+        <div>
+          <h2>Interés simple, compuesto y continuo</h2>
+          <p>
+            Ingresa cualquier tasa (nominal o efectiva, anticipada o vencida, con cualquier
+            capitalización). La herramienta la convertirá automáticamente al periodo de la operación.
+          </p>
+        </div>
+      </div>
+
+      <div class="flow-grid">
+        <div class="step-list">
+          <article class="step">
+            <div class="step-number">1</div>
+            <div>
+              <h4>Escoge crédito o inversión</h4>
+              <p>Define si simulas dinero prestado o dinero invertido.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div class="step-number">2</div>
+            <div>
+              <h4>Escoge el tipo de interés</h4>
+              <p>Simple, compuesto o continuo.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div class="step-number">3</div>
+            <div>
+              <h4>Ingresa la tasa como la tengas</h4>
+              <p>Ya no necesitas que la tasa coincida con el periodo. La herramienta convierte por ti.</p>
+            </div>
+          </article>
+          <article class="step">
+            <div class="step-number">4</div>
+            <div>
+              <h4>Escoge qué hallar</h4>
+              <p>VF, VP, tasa, tiempo o cálculos con múltiples movimientos.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="simulator-box" id="simulador">
+          <h3>Formulario del simulador</h3>
+          <p>Completa solo los datos que ya conoces. La variable que deseas hallar se oculta automáticamente.</p>
+
+          <form id="simuladorForm" novalidate>
+            <div class="placeholder-grid">
+
+              <div class="field">
+                <label for="tipoOperacion">Tipo de operación</label>
+                <select id="tipoOperacion" name="tipoOperacion">
+                  <option value="inversion">Inversión</option>
+                  <option value="credito">Crédito</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="tipoInteres">Tipo de interés</label>
+                <select id="tipoInteres" name="tipoInteres">
+                  <option value="simple">Interés simple</option>
+                  <option value="compuesto" selected>Interés compuesto</option>
+                  <option value="continuo">Interés continuo</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label for="necesidadCalculo">¿Qué deseas hallar?</label>
+                <select id="necesidadCalculo" name="necesidadCalculo">
+                  <option value="vf">Valor Futuro (VF)</option>
+                  <option value="vp">Valor Presente (VP)</option>
+                  <option value="i">Tasa de interés (i)</option>
+                  <option value="n">Tiempo / número de periodos (n)</option>
+                  <option value="vf_total">VF total con múltiples desembolsos o aportes</option>
+                  <option value="vp_total">VP total con múltiples desembolsos o aportes</option>
+                </select>
+              </div>
+
+              <div class="field" data-field="vp">
+                <label for="vp">Valor Presente (VP)</label>
+                <input id="vp" name="vp" type="text" inputmode="decimal" placeholder="1.000.000" data-money="true" />
+              </div>
+
+              <div class="field" data-field="vf">
+                <label for="vf">Valor Futuro (VF)</label>
+                <input id="vf" name="vf" type="text" inputmode="decimal" placeholder="1.200.000" data-money="true" />
+              </div>
+
+              <div class="field" data-field="tasa">
+                <label for="tasa">Valor de la tasa (%)</label>
+                <input id="tasa" name="tasa" type="text" inputmode="decimal" placeholder="Ej. 24" />
+              </div>
+
+              <div class="field" data-field="tipoTasa">
+                <label for="tipoTasa">Tipo de tasa</label>
+                <select id="tipoTasa">
+                  <option value="nominal" selected>Nominal</option>
+                  <option value="efectiva">Efectiva</option>
+                </select>
+              </div>
+
+              <div class="field" data-field="modalidadTasa">
+                <label for="modalidadTasa">Modalidad</label>
+                <select id="modalidadTasa">
+                  <option value="vencida" selected>Vencida</option>
+                  <option value="anticipada">Anticipada</option>
+                </select>
+              </div>
+
+              <div class="field" data-field="periodoTasa">
+                <label for="periodoTasa">Periodo de capitalización</label>
+                <select id="periodoTasa">
+                  <option value="diario">Diario (365)</option>
+                  <option value="semanal">Semanal (52)</option>
+                  <option value="quincenal">Quincenal (24)</option>
+                  <option value="mensual">Mensual (12)</option>
+                  <option value="bimestral">Bimestral (6)</option>
+                  <option value="trimestral">Trimestral (4)</option>
+                  <option value="cuatrimestral">Cuatrimestral (3)</option>
+                  <option value="quintumestral">Quintumestral (2,4)</option>
+                  <option value="semestral">Semestral (2)</option>
+                  <option value="decamestral">Decamestral (1,2)</option>
+                  <option value="anual" selected>Anual (1)</option>
+                  <option value="personalizado">Otro (en meses)</option>
+                </select>
+              </div>
+
+              <div class="field hidden" data-field="periodoTasaPersonal">
+                <label for="periodoTasaPersonal">Indica cada cuántos meses capitaliza</label>
+                <input id="periodoTasaPersonal" type="number" min="0.01" step="0.01" placeholder="Ej. 7" />
+              </div>
+
+              <div class="field" data-field="tiempoUnidad">
+                <label for="unidadTiempo">Unidad del tiempo</label>
+                <select id="unidadTiempo" name="unidadTiempo">
+                  <option value="diario">Días</option>
+                  <option value="semanal">Semanas</option>
+                  <option value="quincenal">Quincenas</option>
+                  <option value="mensual" selected>Meses</option>
+                  <option value="bimestral">Bimestres</option>
+                  <option value="trimestral">Trimestres</option>
+                  <option value="cuatrimestral">Cuatrimestres</option>
+                  <option value="semestral">Semestres</option>
+                  <option value="anual">Años</option>
+                </select>
+              </div>
+
+              <div class="field" data-field="tiempo">
+                <label for="tiempo">Ingresa el tiempo</label>
+                <input id="tiempo" name="tiempo" type="text" inputmode="decimal" placeholder="Ej. 12" />
+              </div>
+
+              <div class="field full hidden" data-field="movimientos">
+                <label id="movimientosLabel">Detalle de desembolsos</label>
+                <div class="movement-box">
+                  <div class="movement-box-header">
+                    <div>
+                      <h4 id="movimientosTitulo">Desembolsos</h4>
+                      <p id="movimientosDescripcion">
+                        Agrega cada desembolso con su monto y el periodo desde el que empieza a contar.
+                      </p>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="agregarMovimientoBtn">+ Agregar movimiento</button>
+                  </div>
+                  <div id="movimientosContainer"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" type="submit">Calcular</button>
+              <button class="btn btn-secondary" type="button" id="limpiarBtn">Limpiar</button>
+            </div>
+          </form>
+
+          <div class="dynamic-note" id="textoExplicativoDinamico">
+            Completa solo los datos que ya conoces. La variable que deseas hallar se ocultará automáticamente.
+          </div>
+
+          <div class="result-summary" id="resumenEjecutivo">
+            <div class="summary-box">
+              <span class="summary-kicker">RESUMEN</span>
+              <h3 id="summaryResultado">—</h3>
+              <p id="summaryInterpretacion">Aquí aparecerá la interpretación principal del cálculo.</p>
+            </div>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-card"><span>TIPO DE OPERACIÓN</span><strong id="summaryOperacion">—</strong></div>
+            <div class="summary-card"><span>TIPO DE INTERÉS</span><strong id="summaryInteres">—</strong></div>
+            <div class="summary-card"><span>TASA INGRESADA</span><strong id="summaryTasa">—</strong></div>
+            <div class="summary-card"><span>TASA EQUIVALENTE AL PERIODO</span><strong id="summaryTasaEquivalente">—</strong></div>
+            <div class="summary-card"><span>UNIDAD DEL TIEMPO</span><strong id="summaryUnidadTiempo">—</strong></div>
+            <div class="summary-card"><span>TIEMPO INGRESADO</span><strong id="summaryTiempoIngresado">—</strong></div>
+            <div class="summary-card"><span>TIEMPO EN PERIODOS DE LA TASA</span><strong id="summaryTiempoPeriodos">—</strong></div>
+          </div>
+
+          <div class="result-preview" id="resultadoPreview">
+            <strong>Resultado estimado</strong>
+            <span id="resultadoTexto">
+              Aquí aparecerá el valor calculado, junto con el resumen de intereses y la interpretación para crédito o inversión.
+            </span>
+          </div>
+
+          <div class="compare-result-box" id="comparadorIntereses">
+            <div class="compare-result-head">
+              <strong>Comparador de resultados</strong>
+              <span>Con los mismos datos, así cambia el resultado según el tipo de interés.</span>
+            </div>
+            <div class="compare-result-grid">
+              <div class="compare-result-card"><label>Interés simple</label><strong id="compareSimple">—</strong></div>
+              <div class="compare-result-card"><label>Interés compuesto</label><strong id="compareCompuesto">—</strong></div>
+              <div class="compare-result-card"><label>Interés continuo</label><strong id="compareContinuo">—</strong></div>
+            </div>
+          </div>
+
+          <div class="result-chart" id="graficoWrapper">
+            <canvas id="graficoSimulador" height="140"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!--  2. CONVERSOR UNIVERSAL DE TASAS                           -->
+    <!-- ========================================================= -->
+    <section class="panel sim-view hidden" id="simConversor">
+      <div class="section-head">
+        <div>
+          <h2>Conversor universal de tasas de interés</h2>
+          <p>
+            Convierte cualquier tasa (nominal o efectiva, vencida o anticipada, con cualquier
+            periodo de capitalización) a cualquier otra. Incluye periodos no estándar como
+            quintumestral o decamestral.
+          </p>
+        </div>
+      </div>
+
+      <div class="simulator-box">
+        <h3>Ingresa la tasa que tienes y la tasa que quieres obtener</h3>
+        <p>La lógica interna lleva todo a una efectiva anual vencida y desde ahí convierte a la tasa de salida.</p>
+
+        <form id="conversorForm" novalidate>
+          <div class="placeholder-grid">
+
+            <div class="field full">
+              <label for="valorTasaEntrada">Valor de la tasa a convertir (%)</label>
+              <input id="valorTasaEntrada" type="text" inputmode="decimal" placeholder="Ej. 24" />
+            </div>
+
+            <h4 class="sub-head">Tasa de entrada</h4>
+            <span class="sub-spacer"></span>
+
+            <div class="field">
+              <label for="tipoTasaEntrada">Tipo</label>
+              <select id="tipoTasaEntrada">
+                <option value="nominal" selected>Nominal</option>
+                <option value="efectiva">Efectiva</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="modalidadEntrada">Modalidad</label>
+              <select id="modalidadEntrada">
+                <option value="vencida" selected>Vencida</option>
+                <option value="anticipada">Anticipada</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="periodoEntrada">Periodo de capitalización</label>
+              <select id="periodoEntrada">
+                <option value="diario">Diario (365)</option>
+                <option value="semanal">Semanal (52)</option>
+                <option value="quincenal">Quincenal (24)</option>
+                <option value="mensual">Mensual (12)</option>
+                <option value="bimestral">Bimestral (6)</option>
+                <option value="trimestral" selected>Trimestral (4)</option>
+                <option value="cuatrimestral">Cuatrimestral (3)</option>
+                <option value="quintumestral">Quintumestral (2,4)</option>
+                <option value="semestral">Semestral (2)</option>
+                <option value="decamestral">Decamestral (1,2)</option>
+                <option value="anual">Anual (1)</option>
+                <option value="personalizado">Otro (en meses)</option>
+              </select>
+            </div>
+
+            <div class="field hidden" id="inputPeriodoEntrada">
+              <label for="periodoPersonalEntrada">Cada cuántos meses capitaliza</label>
+              <input id="periodoPersonalEntrada" type="number" min="0.01" step="0.01" placeholder="Ej. 5" />
+            </div>
+
+            <h4 class="sub-head">Tasa de salida</h4>
+            <span class="sub-spacer"></span>
+
+            <div class="field">
+              <label for="tipoTasaSalida">Tipo</label>
+              <select id="tipoTasaSalida">
+                <option value="nominal">Nominal</option>
+                <option value="efectiva" selected>Efectiva</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="modalidadSalida">Modalidad</label>
+              <select id="modalidadSalida">
+                <option value="vencida" selected>Vencida</option>
+                <option value="anticipada">Anticipada</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="periodoSalida">Periodo de capitalización</label>
+              <select id="periodoSalida">
+                <option value="diario">Diario (365)</option>
+                <option value="semanal">Semanal (52)</option>
+                <option value="quincenal">Quincenal (24)</option>
+                <option value="mensual" selected>Mensual (12)</option>
+                <option value="bimestral">Bimestral (6)</option>
+                <option value="trimestral">Trimestral (4)</option>
+                <option value="cuatrimestral">Cuatrimestral (3)</option>
+                <option value="quintumestral">Quintumestral (2,4)</option>
+                <option value="semestral">Semestral (2)</option>
+                <option value="decamestral">Decamestral (1,2)</option>
+                <option value="anual">Anual (1)</option>
+                <option value="personalizado">Otro (en meses)</option>
+              </select>
+            </div>
+
+            <div class="field hidden" id="inputPeriodoSalida">
+              <label for="periodoPersonalSalida">Cada cuántos meses capitaliza</label>
+              <input id="periodoPersonalSalida" type="number" min="0.01" step="0.01" placeholder="Ej. 7" />
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="submit">Convertir tasa</button>
+            <button class="btn btn-secondary" type="reset" id="limpiarConversor">Limpiar</button>
+          </div>
+        </form>
+
+        <div class="dynamic-note">
+          Regla de oro: el conversor primero lleva la tasa a <strong>efectiva anual vencida</strong>
+          (la moneda universal) y desde ahí la convierte a la salida deseada.
+        </div>
+
+        <div class="result-summary tasa-resultado-box">
+          <div class="summary-box">
+            <span class="summary-kicker">RESULTADO FINAL</span>
+            <h3 id="resultadoTasaConvertida">—</h3>
+            <p class="resultado-subtitulo">Conversión paso a paso</p>
+            <div id="interpretacionTasa" class="resultado-pasos">
+              Aquí aparecerá el resultado de la tasa equivalente.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!--  3. ANUALIDADES VENCIDAS                                   -->
+    <!-- ========================================================= -->
+    <section class="panel sim-view hidden" id="simAnualidades">
+      <div class="section-head">
+        <div>
+          <h2>Simulador de anualidades vencidas</h2>
+          <p>
+            Calcula el Valor Presente, Valor Futuro o el valor de la cuota de una serie de
+            pagos iguales al final de cada periodo. Permite agregar pagos extraordinarios
+            y acepta cualquier tasa (la convertimos automáticamente).
+          </p>
+        </div>
+      </div>
+
+      <div class="simulator-box">
+        <h3>Define tu anualidad</h3>
+        <p>
+          Recuerda: una anualidad vencida paga al final de cada periodo. La fórmula base usa
+          interés compuesto, por eso nuestro motor primero convierte tu tasa a la efectiva
+          del periodo de pago.
+        </p>
+
+        <form id="anualidadesForm" novalidate>
+          <div class="placeholder-grid">
+
+            <div class="field">
+              <label for="anualidadOperacion">Tipo de operación</label>
+              <select id="anualidadOperacion">
+                <option value="credito">Crédito (pagar cuotas)</option>
+                <option value="inversion" selected>Inversión / ahorro (aportar cuotas)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="anualidadCalculo">¿Qué deseas hallar?</label>
+              <select id="anualidadCalculo">
+                <option value="vf">Valor Futuro (VF) — cuánto tendré al final</option>
+                <option value="vp">Valor Presente (VP) — cuánto valen hoy los pagos</option>
+                <option value="a_desde_vp">Cuota A desde un Valor Presente (monto de un crédito)</option>
+                <option value="a_desde_vf">Cuota A desde un Valor Futuro (meta de ahorro)</option>
+              </select>
+            </div>
+
+            <div class="field" data-anu-field="cuota">
+              <label for="anualidadCuota">Valor de la cuota A</label>
+              <input id="anualidadCuota" type="text" inputmode="decimal" placeholder="500.000" data-money="true" />
+            </div>
+
+            <div class="field hidden" data-anu-field="vp">
+              <label for="anualidadVP">Valor Presente (VP)</label>
+              <input id="anualidadVP" type="text" inputmode="decimal" placeholder="20.000.000" data-money="true" />
+            </div>
+
+            <div class="field hidden" data-anu-field="vf">
+              <label for="anualidadVF">Valor Futuro (VF)</label>
+              <input id="anualidadVF" type="text" inputmode="decimal" placeholder="50.000.000" data-money="true" />
+            </div>
+
+            <div class="field">
+              <label for="anualidadTiempo">Número de periodos de pago (n)</label>
+              <input id="anualidadTiempo" type="text" inputmode="decimal" placeholder="Ej. 60" />
+            </div>
+
+            <div class="field">
+              <label for="anualidadPeriodoPago">Periodicidad del pago</label>
+              <select id="anualidadPeriodoPago">
+                <option value="diario">Diario</option>
+                <option value="semanal">Semanal</option>
+                <option value="quincenal">Quincenal</option>
+                <option value="mensual" selected>Mensual</option>
+                <option value="bimestral">Bimestral</option>
+                <option value="trimestral">Trimestral</option>
+                <option value="cuatrimestral">Cuatrimestral</option>
+                <option value="quintumestral">Quintumestral</option>
+                <option value="semestral">Semestral</option>
+                <option value="decamestral">Decamestral</option>
+                <option value="anual">Anual</option>
+                <option value="personalizado">Otro (meses)</option>
+              </select>
+            </div>
+
+            <div class="field hidden" id="inputPeriodoPagoPersonal">
+              <label for="anualidadPeriodoPagoPersonal">Meses por periodo de pago</label>
+              <input id="anualidadPeriodoPagoPersonal" type="number" min="0.01" step="0.01" placeholder="Ej. 5" />
+            </div>
+
+            <div class="field">
+              <label for="anualidadTasa">Valor de la tasa (%)</label>
+              <input id="anualidadTasa" type="text" inputmode="decimal" placeholder="Ej. 24" />
+            </div>
+
+            <div class="field">
+              <label for="anualidadTipoTasa">Tipo de tasa</label>
+              <select id="anualidadTipoTasa">
+                <option value="nominal" selected>Nominal</option>
+                <option value="efectiva">Efectiva</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="anualidadModalidad">Modalidad de la tasa</label>
+              <select id="anualidadModalidad">
+                <option value="vencida" selected>Vencida</option>
+                <option value="anticipada">Anticipada</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="anualidadPeriodoTasa">Capitalización de la tasa</label>
+              <select id="anualidadPeriodoTasa">
+                <option value="diario">Diario</option>
+                <option value="semanal">Semanal</option>
+                <option value="quincenal">Quincenal</option>
+                <option value="mensual">Mensual</option>
+                <option value="bimestral">Bimestral</option>
+                <option value="trimestral">Trimestral</option>
+                <option value="cuatrimestral">Cuatrimestral</option>
+                <option value="quintumestral">Quintumestral</option>
+                <option value="semestral">Semestral</option>
+                <option value="decamestral">Decamestral</option>
+                <option value="anual" selected>Anual</option>
+                <option value="personalizado">Otro (meses)</option>
+              </select>
+            </div>
+
+            <div class="field hidden" id="inputPeriodoTasaAnualidadPersonal">
+              <label for="anualidadPeriodoTasaPersonal">Meses por periodo de tasa</label>
+              <input id="anualidadPeriodoTasaPersonal" type="number" min="0.01" step="0.01" placeholder="Ej. 7" />
+            </div>
+
+            <div class="field full">
+              <label id="extrasLabel">Pagos extraordinarios (opcional)</label>
+              <div class="movement-box">
+                <div class="movement-box-header">
+                  <div>
+                    <h4>Pagos extra</h4>
+                    <p>Si deseas agregar un pago extraordinario en un periodo específico, úsalo aquí. Puedes agregar los que quieras.</p>
+                  </div>
+                  <button type="button" class="btn btn-secondary" id="agregarExtraBtn">+ Agregar pago extra</button>
+                </div>
+                <div id="extrasContainer"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="submit">Calcular anualidad</button>
+            <button class="btn btn-secondary" type="button" id="limpiarAnualidadBtn">Limpiar</button>
+          </div>
+        </form>
+
+        <div class="dynamic-note" id="anualidadNota">
+          Todos los pagos se asumen al final de cada periodo. La herramienta convierte automáticamente la tasa
+          ingresada a una efectiva vencida al periodo del pago antes de calcular.
+        </div>
+
+        <div class="result-summary">
+          <div class="summary-box">
+            <span class="summary-kicker">RESULTADO DE LA ANUALIDAD</span>
+            <h3 id="anualidadResultado">—</h3>
+            <p id="anualidadInterpretacion">Aquí aparecerá la interpretación del cálculo.</p>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card"><span>OPERACIÓN</span><strong id="anuSumOperacion">—</strong></div>
+          <div class="summary-card"><span>TASA INGRESADA</span><strong id="anuSumTasa">—</strong></div>
+          <div class="summary-card"><span>TASA EFECTIVA DEL PERIODO</span><strong id="anuSumTasaPeriodo">—</strong></div>
+          <div class="summary-card"><span>NÚMERO DE PAGOS</span><strong id="anuSumN">—</strong></div>
+          <div class="summary-card"><span>PERIODICIDAD DEL PAGO</span><strong id="anuSumPeriodo">—</strong></div>
+          <div class="summary-card"><span>PAGOS EXTRAORDINARIOS</span><strong id="anuSumExtras">—</strong></div>
+        </div>
+
+        <div class="compare-result-box">
+          <div class="compare-result-head">
+            <strong>Aportes vs. Intereses</strong>
+            <span>Qué parte de tu resultado son los aportes/cuotas y qué parte son los intereses.</span>
+          </div>
+          <div class="compare-result-grid">
+            <div class="compare-result-card"><label>Total aportado / pagado</label><strong id="anuTotalAportes">—</strong></div>
+            <div class="compare-result-card"><label>Total en intereses</label><strong id="anuTotalIntereses">—</strong></div>
+            <div class="compare-result-card"><label>Total con extras</label><strong id="anuTotalConExtras">—</strong></div>
+          </div>
+        </div>
+
+        <div class="result-chart">
+          <canvas id="graficoAnualidad" height="140"></canvas>
+        </div>
+      </div>
+    </section>
+<select id="objetivoAnualidad" onchange="actualizarCamposAnualidad()">
+  
+</select>
+    <div style="margin-top:20px;">
+      <a href="index.html" class="btn btn-secondary">← Volver a la teoría</a>
+    </div>
+  </main>
+
+  <footer id="contacto">
+    Finanzas Pro · Herramienta educativa construida para clientes del banco · 2026
+  </footer>
+
+  <script src="logica.js"></script>
+</body>
+</html>

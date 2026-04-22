@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador Financiero</title>
+   <link rel="stylesheet" href="STYLE.css">
+</head>
+<body>
+    <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">ƒ</div>
+        <span>Finanzas Pro</span>
+      </div>
+
+     <nav class="nav" aria-label="Navegación principal">
+  <a href="#inicio">Inicio</a>
+  <a href="#intereses">Tipos de interés</a>
+  <a href="#conceptos">Conceptos básicos</a>
+  <a href="#tasas">Tasas</a>
+  <a href="#anualidades">Anualidades</a>
+  <a href="simulador.html">Simulador</a>
+  <a href="#contacto">Soporte</a>
+</nav>
+      <div class="nav-tools" aria-hidden="true">
+        <span>⌕</span>
+        <span>◯</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="inicio">
+    <div id="inicioView">
+    <section class="hero">
+      <article class="hero-main">
+        <div class="eyebrow">Educación financiera · 2° corte</div>
+        <h1>Entiende tu crédito o tu inversión antes de tomar una decisión.</h1>
+        <p>
+          Ahora con un conversor universal de tasas y un simulador de anualidades vencidas
+          con pagos extraordinarios. Nuestra herramienta convierte automáticamente cualquier tasa
+          (nominal, efectiva, anticipada, vencida, con cualquier capitalización) al periodo de tu operación.
+        </p>
+        <div class="hero-actions">
+          <a href="#intereses" class="btn btn-primary">Explorar tipos de interés</a>
+          <a href="simulador.html" class="btn btn-secondary">Ir al simulador</a>
+          <a href="#ia" class="btn btn-secondary">Uso de IA</a>
+        </div>
+      </article>
+
+      <aside class="hero-side">
+        <div>
+          <h2>Un sistema integrado, no módulos aislados</h2>
+          <p>
+            Elige si vas a simular un crédito o una inversión, escoge interés simple, compuesto o continuo,
+            o pasa al conversor y al simulador de anualidades. Los tres comparten el mismo motor de conversión de tasas.
+          </p>
+        </div>
+        <div class="hero-stat-grid">
+          <div class="hero-stat">
+            <strong>3</strong>
+            <span>Simuladores integrados</span>
+          </div>
+          <div class="hero-stat">
+            <strong>12+</strong>
+            <span>Periodos de capitalización</span>
+          </div>
+          <div class="hero-stat">
+            <strong>2</strong>
+            <span>Operaciones: crédito e inversión</span>
+          </div>
+          <div class="hero-stat">
+            <strong>∞</strong>
+            <span>Pagos extraordinarios en anualidades</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel" id="intereses">
+      <div class="section-head">
+        <div>
+          <h2>Escoge el interés que quieres simular</h2>
+          <p>
+            El usuario primero puede leer la diferencia entre cada tipo de interés y después entrar al formulario.
+          </p>
+        </div>
+      </div>
+
+      <div class="interest-tabs">
+        <input type="radio" name="interest-tab" id="tab-simple" checked>
+        <input type="radio" name="interest-tab" id="tab-compuesto">
+        <input type="radio" name="interest-tab" id="tab-continuo">
+
+        <div class="interest-labels">
+          <label for="tab-simple">Interés simple</label>
+          <label for="tab-compuesto">Interés compuesto</label>
+          <label for="tab-continuo">Interés continuo</label>
+        </div>
+
+        <div class="tab-panels">
+          <article class="guide-card panel-simple">
+            <small>Opción 1</small>
+            <h3>Interés simple</h3>
+            <p>
+              Imagínalo como una alcancía que suma siempre lo mismo: el interés se calcula una sola vez sobre
+              el dinero inicial y no se suma al total para calcular más intereses.
+            </p>
+            <div class="formula">VF = VP × (1 + i × n)</div>
+            <ul>
+              <li><strong>¿Cuándo se usa?</strong> En créditos de corto plazo, libranzas sencillas, pagarés, mora.</li>
+              <li><strong>Variables:</strong> VP = capital inicial; i = tasa por periodo; n = número de periodos.</li>
+            </ul>
+            <div class="mini-note">
+              <strong>Ejemplo Colombia:</strong> Pides prestados $2.000.000 a tu primo por 6 meses al 2% mensual simple.
+              Intereses totales = 2.000.000 × 0,02 × 6 = $240.000. Le devuelves $2.240.000.
+            </div>
+          </article>
+
+          <article class="guide-card panel-compuesto">
+            <small>Opción 2</small>
+            <h3>Interés compuesto</h3>
+            <p>
+              Cada periodo, los intereses ganados se suman al capital y en el siguiente periodo los nuevos
+              intereses se calculan sobre esa suma mayor. Es "interés sobre interés".
+            </p>
+            <div class="formula">VF = VP × (1 + i)<sup>n</sup></div>
+            <ul>
+              <li><strong>¿Por qué es diferente?</strong> Porque el capital base crece cada periodo.</li>
+              <li><strong>¿Cuándo se usa?</strong> CDT, cuentas de ahorro, bonos, créditos de vivienda, libranza bancaria.</li>
+            </ul>
+            <div class="mini-note">
+              <strong>Ejemplo Colombia:</strong> Inviertes $5.000.000 en un CDT a 12 meses con 1% efectivo mensual.
+              VF = 5.000.000 × (1,01)<sup>12</sup> = $5.634.125. Ganaste $634.125.
+            </div>
+          </article>
+
+          <article class="guide-card panel-continuo">
+            <small>Opción 3</small>
+            <h3>Interés continuo</h3>
+            <p>
+              Modelo matemático en el que el dinero crece "a cada instante" (no por periodos).
+              Se usa mucho en finanzas cuantitativas, valoración de opciones y modelos económicos.
+            </p>
+            <div class="formula">VF = VP × e<sup>i × n</sup></div>
+            <ul>
+              <li><strong>¿En qué contextos?</strong> Derivados, Black-Scholes, poblaciones biológicas, decaimiento radiactivo.</li>
+              <li><strong>Diferencia vs. compuesto:</strong> e<sup>i·n</sup> es el límite cuando la capitalización es infinita.</li>
+            </ul>
+            <div class="mini-note">
+              <strong>Ejemplo Colombia:</strong> Una valoración teórica con $1.000.000 al 10% continuo por 5 años:
+              VF = 1.000.000 × e<sup>0,5</sup> = $1.648.721.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="conceptos">
+      <div class="section-head">
+        <div>
+          <h2>¿Qué significa cada concepto?</h2>
+          <p>
+            Esta parte sirve para que una persona que no sabe nada de finanzas pueda entender qué está calculando.
+          </p>
+        </div>
+      </div>
+
+      <div class="need-tabs">
+        <input type="radio" name="need-tab" id="need-vp" checked>
+        <input type="radio" name="need-tab" id="need-vf">
+        <input type="radio" name="need-tab" id="need-i">
+        <input type="radio" name="need-tab" id="need-n">
+
+        <div class="need-labels">
+          <label for="need-vp">Valor Presente (VP)</label>
+          <label for="need-vf">Valor Futuro (VF)</label>
+          <label for="need-i">Tasa de interés (i)</label>
+          <label for="need-n">Tiempo o periodos (n)</label>
+        </div>
+
+        <div class="need-panels">
+          <article class="guide-card guide-vp">
+            <small>Concepto 1</small>
+            <h3>Valor Presente (VP)</h3>
+            <p>
+              Es el dinero que existe hoy, al inicio de la operación. Es el punto de partida.
+            </p>
+            <ul>
+              <li>En una inversión, es lo que inviertes al comienzo.</li>
+              <li>En un crédito, es lo que recibes al inicio.</li>
+              <li>Es responder: <strong>“¿cuánto hay hoy?”</strong></li>
+            </ul>
+            <div class="mini-note">Ejemplo: si hoy pones $1.000.000, ese es el Valor Presente.</div>
+          </article>
+
+          <article class="guide-card guide-vf">
+            <small>Concepto 2</small>
+            <h3>Valor Futuro (VF)</h3>
+            <p>
+              Es el valor que se tendrá al final, después de aplicar intereses durante un tiempo.
+            </p>
+            <ul>
+              <li>En una inversión, muestra cuánto habrá crecido tu dinero.</li>
+              <li>En un crédito, muestra cuánto terminarás pagando.</li>
+              <li>Es responder: <strong>“¿cuánto habrá al final?”</strong></li>
+            </ul>
+            <div class="mini-note">Ejemplo: si empiezas con $1.000.000 y al final tienes $1.120.000, ese es el VF.</div>
+          </article>
+
+          <article class="guide-card guide-i">
+            <small>Concepto 3</small>
+            <h3>Tasa de interés (i)</h3>
+            <p>
+              Es el porcentaje que hace cambiar el dinero con el tiempo.
+            </p>
+            <ul>
+              <li>En una inversión, representa la ganancia.</li>
+              <li>En un crédito, representa el costo del dinero prestado.</li>
+              <li>Es responder: <strong>“¿a qué ritmo cambia el dinero?”</strong></li>
+            </ul>
+            <div class="mini-note">Ejemplo: una tasa de 2% mensual significa que cada mes el dinero cambia un 2%.</div>
+          </article>
+
+          <article class="guide-card guide-n">
+            <small>Concepto 4</small>
+            <h3>Tiempo o número de periodos (n)</h3>
+            <p>
+              Es la cantidad de periodos durante los cuales se aplicará la tasa.
+            </p>
+            <ul>
+              <li>Si la tasa es mensual, el tiempo se entiende en meses.</li>
+              <li>Si la tasa es anual, el tiempo se entiende en años.</li>
+              <li>Es responder: <strong>“¿durante cuánto tiempo?”</strong></li>
+            </ul>
+            <div class="mini-note">Ejemplo: si la tasa es mensual y pasan 12 meses, entonces hay 12 periodos.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h2>Diferencia rápida entre simple, compuesto y continuo</h2>
+          <p>
+            Comparación corta para que el usuario escoja mejor.
+          </p>
+        </div>
+      </div>
+
+      <div class="compare-grid">
+        <article class="card">
+          <small>Simple</small>
+          <h4>Crece de forma lineal</h4>
+          <p>Siempre se calcula sobre el valor inicial.</p>
+        </article>
+
+        <article class="card">
+          <small>Compuesto</small>
+          <h4>Crece acumulando intereses</h4>
+          <p>Cada periodo usa el saldo actualizado.</p>
+        </article>
+
+        <article class="card">
+          <small>Continuo</small>
+          <h4>Crece en todo momento</h4>
+          <p>Supone crecimiento permanente, sin pausas.</p>
+        </article>
+      </div>
+    </section>
+<section class="panel" id="tasas">
+  <div class="section-head">
+    <div>
+      <h2>Educador financiero de tasas</h2>
+      <p>
+        Esta parte está hecha para una persona que nunca ha visto tasas.
+        La idea es entenderlas con palabras simples antes de usarlas en el simulador.
+      </p>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <article class="card">
+      <small>Concepto 1</small>
+      <h4>¿Qué es una tasa?</h4>
+      <p>
+        Una tasa es el precio del dinero en el tiempo.
+        Si te prestan dinero, la tasa muestra cuánto te cobran.
+        Si inviertes dinero, la tasa muestra cuánto te pagan.
+      </p>
+    </article>
+
+    <article class="card">
+      <small>Concepto 2</small>
+      <h4>¿Qué significa capitalizar?</h4>
+      <p>
+        Capitalizar significa que los intereses se van sumando al dinero.
+        Después, los nuevos intereses también se calculan sobre ese total.
+      </p>
+    </article>
+
+    <article class="card">
+      <small>Concepto 3</small>
+      <h4>¿Qué es la periodicidad?</h4>
+      <p>
+        Es cada cuánto se aplica la tasa.
+        Puede ser mensual, bimestral, trimestral, cuatrimestral, semestral o anual.
+      </p>
+    </article>
+  </div>
+
+  <div class="compare-grid">
+    <article class="card">
+      <small>Periodicidades comunes</small>
+      <h4>Número de periodos por año</h4>
+      <ul>
+        <li>Mensual = 12</li>
+        <li>Bimestral = 6</li>
+        <li>Trimestral = 4</li>
+        <li>Cuatrimestral = 3</li>
+        <li>Semestral = 2</li>
+        <li>Anual = 1</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <small>Concepto 4</small>
+      <h4>Tasa nominal</h4>
+      <p>
+        Es una tasa anual “anunciada”, pero por sí sola no cuenta toda la historia.
+        Para entenderla bien, siempre debes mirar cada cuánto capitaliza.
+      </p>
+      <div class="mini-note">
+        Ejemplo: 12% nominal anual con capitalización mensual.
+      </div>
+    </article>
+
+    <article class="card">
+      <small>Concepto 5</small>
+      <h4>Tasa efectiva</h4>
+      <p>
+        Es la tasa que sí muestra el efecto real del crecimiento o del costo del dinero,
+        porque ya tiene en cuenta la capitalización.
+      </p>
+      <div class="mini-note">
+        Es la más útil para comparar opciones.
+      </div>
+    </article>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Tasa vencida y tasa anticipada</h3>
+        <p>
+          La diferencia principal está en el momento en que se aplica el interés.
+        </p>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Vencida</small>
+        <h4>¿Qué significa?</h4>
+        <p>
+          La tasa vencida se aplica al final del periodo.
+          Primero pasa el tiempo y luego se calcula el interés.
+        </p>
+        <div class="mini-note">
+          Es muy común en créditos, préstamos e inversiones tradicionales.
+        </div>
+      </article>
+
+      <article class="card">
+        <small>Anticipada</small>
+        <h4>¿Qué significa?</h4>
+        <p>
+          La tasa anticipada se aplica al inicio del periodo.
+          En otras palabras, el interés se descuenta o se cobra antes.
+        </p>
+        <div class="mini-note">
+          Es común verla en descuentos financieros o algunas operaciones comerciales.
+        </div>
+      </article>
+
+      <article class="card">
+        <small>Diferencia rápida</small>
+        <h4>Cómo recordarlo fácil</h4>
+        <p>
+          Vencida = al final.
+          Anticipada = al principio.
+        </p>
+        <p>
+          Por eso no se deben comparar directamente sin convertirlas primero.
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>¿Cómo se obtiene una tasa nominal?</h3>
+        <p>
+          La tasa nominal sale de multiplicar una tasa periódica por el número
+          de capitalizaciones del año.
+        </p>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Nominal vencida</small>
+        <h4>Desde una periódica vencida</h4>
+        <div class="formula">TNA = i<sub>v</sub> × n<sub>c</sub></div>
+        <div class="formula">i<sub>v</sub> = TNA / n<sub>c</sub></div>
+        <p>
+          Si ya conoces una tasa periódica vencida, la multiplicas por el número
+          de periodos del año para sacar la tasa nominal anual.
+        </p>
+        <div class="mini-note">
+          Ejemplo: si la tasa mensual vencida es 1%, la nominal anual es 1% × 12 = 12%.
+        </div>
+      </article>
+
+      <article class="card">
+        <small>Nominal anticipada</small>
+        <h4>Desde una periódica anticipada</h4>
+        <div class="formula">TNAA = i<sub>a</sub> × n<sub>c</sub></div>
+        <div class="formula">i<sub>a</sub> = TNAA / n<sub>c</sub></div>
+        <p>
+          La lógica es la misma, pero en este caso partes de una tasa periódica anticipada.
+        </p>
+        <div class="mini-note">
+          Si la tasa anticipada bimestral es 2%, la nominal anual anticipada sería 2% × 6 = 12%.
+        </div>
+      </article>
+
+      <article class="card">
+        <small>Idea clave</small>
+        <h4>Desde dónde se parte</h4>
+        <p>
+          Para trabajar bien una conversión, primero debes identificar si tu tasa
+          de origen es vencida o anticipada.
+        </p>
+        <p>
+          Después la llevas a una tasa periódica y desde ahí haces la conversión.
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Fórmulas básicas de conversión</h3>
+        <p>
+          Estas son las fórmulas más importantes para transformar tasas.
+        </p>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Entre vencida y anticipada</small>
+        <h4>Pasar de vencida a anticipada</h4>
+        <div class="formula">i<sub>a</sub> = i<sub>v</sub> / (1 + i<sub>v</sub>)</div>
+        <p>
+          Aquí partes de una tasa vencida y obtienes su equivalente anticipada.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>Entre anticipada y vencida</small>
+        <h4>Pasar de anticipada a vencida</h4>
+        <div class="formula">i<sub>v</sub> = i<sub>a</sub> / (1 - i<sub>a</sub>)</div>
+        <p>
+          Aquí partes de una tasa anticipada y obtienes su equivalente vencida.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>Entre periodicidades</small>
+        <h4>Pasar de una periódica a otra</h4>
+        <div class="formula">i<sub>y</sub> = (1 + i<sub>x</sub>)<sup>n<sub>y</sub>/n<sub>x</sub></sup> - 1</div>
+        <p>
+          Sirve para cambiar la tasa de un periodo a otro, por ejemplo de mensual a semestral.
+        </p>
+      </article>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Periódica a efectiva anual</small>
+        <h4>Conversión a EA</h4>
+        <div class="formula">EA = (1 + i)<sup>n</sup> - 1</div>
+        <p>
+          Se usa cuando ya tienes una tasa periódica y quieres saber cuánto equivale en un año.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>Efectiva anual a periódica</small>
+        <h4>Conversión desde EA</h4>
+        <div class="formula">i = (1 + EA)<sup>1/n</sup> - 1</div>
+        <p>
+          Se usa cuando tienes una efectiva anual y quieres convertirla a mensual,
+          trimestral, semestral u otra periodicidad.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>En palabras fáciles</small>
+        <h4>Cómo hacerlo sin perderte</h4>
+        <p>
+          Paso 1: mira si la tasa es nominal o efectiva.
+        </p>
+        <p>
+          Paso 2: mira si es vencida o anticipada.
+        </p>
+        <p>
+          Paso 3: identifica su periodicidad.
+        </p>
+        <p>
+          Paso 4: conviértela a la forma que te piden.
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="mini-note" style="margin-top: 20px;">
+    Regla práctica: si una tasa está en nominal, primero identifica su tasa periódica.
+    Si además está en anticipada, conviértela antes de compararla con una vencida.
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Proceso universal de conversión (el que usa nuestra herramienta)</h3>
+        <p>
+          El truco es usar la <strong>Efectiva Anual Vencida (EA)</strong> como una "moneda común".
+          Cualquier tasa se lleva primero a EA, y desde EA se convierte a la tasa de destino.
+        </p>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Paso 1</small>
+        <h4>Llevar a tasa periódica</h4>
+        <p>Si la tasa es <strong>nominal</strong>, la divides entre el número de capitalizaciones del año. Si es <strong>efectiva</strong>, ya es periódica.</p>
+        <div class="formula">i<sub>per</sub> = Nominal / m &nbsp; (o &nbsp; i<sub>per</sub> = Efectiva)</div>
+      </article>
+
+      <article class="card">
+        <small>Paso 2</small>
+        <h4>Ajustar a vencida</h4>
+        <p>Si la tasa periódica es anticipada, la pasas a vencida con la fórmula:</p>
+        <div class="formula">i<sub>v</sub> = i<sub>a</sub> / (1 − i<sub>a</sub>)</div>
+      </article>
+
+      <article class="card">
+        <small>Paso 3</small>
+        <h4>Subir a efectiva anual vencida</h4>
+        <div class="formula">EA = (1 + i<sub>v</sub>)<sup>m</sup> − 1</div>
+        <p>Donde <strong>m</strong> es el número de veces que la tasa capitaliza en un año.</p>
+      </article>
+
+      <article class="card">
+        <small>Paso 4</small>
+        <h4>Bajar a la periodicidad destino</h4>
+        <div class="formula">i<sub>v,destino</sub> = (1 + EA)<sup>1/m'</sup> − 1</div>
+        <p>Con <strong>m'</strong> el número de periodos destino por año.</p>
+      </article>
+
+      <article class="card">
+        <small>Paso 5</small>
+        <h4>Ajustar modalidad destino</h4>
+        <div class="formula">i<sub>a,destino</sub> = i<sub>v,destino</sub> / (1 + i<sub>v,destino</sub>)</div>
+        <p>Solo si el destino es anticipada. Si es vencida, te quedas con el paso anterior.</p>
+      </article>
+
+      <article class="card">
+        <small>Paso 6</small>
+        <h4>Reempaquetar como nominal o efectiva</h4>
+        <div class="formula">Nominal<sub>destino</sub> = i<sub>per,destino</sub> × m'</div>
+        <p>Si el destino es efectiva, ya está; si es nominal, multiplicas por el número de periodos del año.</p>
+      </article>
+    </div>
+
+    <div class="mini-note" style="margin-top:18px;">
+      <strong>Ejemplo en lenguaje sencillo (para un niño de 5 años):</strong>
+      Imagina que te dicen que una tasa es del 12% nominal anual con capitalización mensual.
+      Suena complicado, pero solo significa que el banco toma ese 12% y lo divide en 12 mesecitos:
+      cada mes te cobra (o te paga) el 1%. Como cada mes ese pedacito se suma al total, al final del
+      año pagas un poquito más del 12%. Ese "poquito más" es la tasa efectiva: <strong>(1,01)<sup>12</sup> − 1 = 12,6825%</strong>.
+    </div>
+
+    <div class="compare-grid" style="margin-top:18px;">
+      <article class="card">
+        <small>Caso colombiano 1</small>
+        <h4>Crédito de libre inversión</h4>
+        <p>
+          El banco te ofrece "24% Nominal Anual capitalizable Trimestral Vencida".
+          Eso es 6% trimestral vencida. La efectiva mensual equivalente es
+          <strong>1,9613%</strong>, porque primero subes a EA (26,2477%) y bajas a mensual.
+        </p>
+      </article>
+      <article class="card">
+        <small>Caso colombiano 2</small>
+        <h4>Tarjeta de crédito</h4>
+        <p>
+          Una tarjeta que cobra 2,3% efectiva mensual equivale a
+          <strong>EA = (1,023)<sup>12</sup> − 1 = 31,37%</strong>.
+          Así puedes comparar con una libranza al 18% EA: la tarjeta es casi el doble.
+        </p>
+      </article>
+      <article class="card">
+        <small>Caso colombiano 3</small>
+        <h4>Descuento comercial (anticipada)</h4>
+        <p>
+          Una factura con descuento del 1% mensual anticipada equivale a
+          <strong>1/(1 − 0,01) − 1 = 1,0101%</strong> vencida.
+          Parece lo mismo, pero al acumularse en el año la diferencia pesa.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="panel" id="anualidades">
+  <div class="section-head">
+    <div>
+      <h2>Anualidades</h2>
+      <p>
+        Una anualidad es una serie de pagos iguales que se realizan en intervalos
+        de tiempo iguales.
+      </p>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <article class="card">
+      <small>Definición</small>
+      <h4>¿Qué es una anualidad?</h4>
+      <p>
+        Puede representar pagos o cobros periódicos: mensuales, bimestrales,
+        trimestrales, semestrales o anuales.
+      </p>
+    </article>
+
+    <article class="card">
+      <small>Condición 1</small>
+      <h4>Pagos iguales</h4>
+      <p>Todos los pagos deben tener el mismo valor.</p>
+    </article>
+
+    <article class="card">
+      <small>Condición 2</small>
+      <h4>Pagos periódicos</h4>
+      <p>Los pagos deben hacerse a intervalos regulares.</p>
+    </article>
+  </div>
+
+  <div class="compare-grid">
+    <article class="card">
+      <small>Condición 3</small>
+      <h4>Misma tasa</h4>
+      <p>
+        Los pagos deben llevarse a valor presente o futuro con una misma tasa equivalente.
+      </p>
+    </article>
+
+    <article class="card">
+      <small>Condición 4</small>
+      <h4>Mismo número de periodos</h4>
+      <p>El número de pagos debe coincidir con el número de periodos.</p>
+    </article>
+
+    <article class="card">
+      <small>Ejemplos</small>
+      <h4>Casos comunes</h4>
+      <ul>
+        <li>Cuotas de un crédito</li>
+        <li>Aportes mensuales de ahorro</li>
+        <li>Pago periódico de una suscripción</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Anualidad vencida</h3>
+        <p>
+          En una anualidad vencida los pagos se realizan al final de cada periodo.
+        </p>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Valor presente</small>
+        <h4>Fórmula</h4>
+        <div class="formula">P = A [(1 + i)<sup>n</sup> - 1] / [i(1 + i)<sup>n</sup>]</div>
+        <p>Sirve para hallar cuánto valen hoy todos los pagos futuros.</p>
+      </article>
+
+      <article class="card">
+        <small>Valor futuro</small>
+        <h4>Fórmula</h4>
+        <div class="formula">VF = A [(1 + i)<sup>n</sup> - 1] / i</div>
+        <p>Sirve para hallar cuánto dinero se acumula al final.</p>
+      </article>
+
+      <article class="card">
+        <small>Valor de la cuota</small>
+        <h4>Desde valor presente</h4>
+        <div class="formula">A = P / {[(1 + i)<sup>n</sup> - 1] / [i(1 + i)<sup>n</sup>]}</div>
+        <p>Sirve para hallar la cuota cuando ya conoces el valor presente.</p>
+      </article>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Valor de la cuota</small>
+        <h4>Desde valor futuro</h4>
+        <div class="formula">A = VF × i / [(1 + i)<sup>n</sup> - 1]</div>
+        <p>Sirve cuando conoces la meta futura y quieres hallar el pago periódico.</p>
+      </article>
+
+      <article class="card">
+        <small>Interpretación fácil</small>
+        <h4>Cómo reconocerla</h4>
+        <p>
+          Si pagas o ahorras el mismo valor al final de cada mes, estás trabajando
+          con una anualidad vencida.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>Pagos extra</small>
+        <h4>Adicionales extraordinarios</h4>
+        <p>
+          También pueden existir pagos adicionales en momentos específicos.
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Pagos adicionales extraordinarios</h3>
+        <p>
+          Además de las cuotas regulares, puedes agregar pagos extra en periodos específicos.
+          Nuestro simulador los lleva automáticamente al VP o al VF según corresponda.
+        </p>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <article class="card">
+        <small>Definición</small>
+        <h4>¿Qué es un pago extra?</h4>
+        <p>
+          Es un monto que ocurre una única vez en un periodo específico, por encima de
+          (o además de) las cuotas regulares de la anualidad.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>¿Cómo se calcula su impacto?</small>
+        <h4>Al VF</h4>
+        <div class="formula">Extra<sub>VF</sub> = extra × (1 + i)<sup>n − k</sup></div>
+        <p>El pago extra en el periodo k se capitaliza los (n − k) periodos restantes.</p>
+      </article>
+
+      <article class="card">
+        <small>¿Cómo se calcula su impacto?</small>
+        <h4>Al VP</h4>
+        <div class="formula">Extra<sub>VP</sub> = extra / (1 + i)<sup>k</sup></div>
+        <p>El pago extra en el periodo k se descuenta a valor presente.</p>
+      </article>
+    </div>
+
+    <div class="compare-grid" style="margin-top:14px;">
+      <article class="card">
+        <small>Caso colombiano 1</small>
+        <h4>Ahorro para la universidad</h4>
+        <p>
+          Aportas $300.000 mensuales durante 120 meses a un fondo que rinde
+          10% EA. Además, cada diciembre aportas una prima extra de $1.500.000.
+          La herramienta te dice cuánto tendrás al final con todo y extras.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>Caso colombiano 2</small>
+        <h4>Crédito de vivienda</h4>
+        <p>
+          Crédito de $200.000.000 a 180 meses. El banco ofrece "Nominal Anual
+          Capitalizable Mensual Vencida" del 15%. Con la tasa ya convertida,
+          el simulador calcula la cuota fija mensual.
+        </p>
+      </article>
+
+      <article class="card">
+        <small>Caso colombiano 3</small>
+        <h4>Abono a capital</h4>
+        <p>
+          En el mismo crédito, haces un abono extra a capital de $10.000.000
+          en el mes 24 para reducir la deuda. El simulador permite marcarlo
+          como "abono" y reconoce su efecto.
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Anualidad vs. pago único · diferencias</h3>
+        <p>
+          La diferencia principal: la anualidad es una serie, el pago único es un movimiento aislado.
+        </p>
+      </div>
+    </div>
+    <div class="compare-grid">
+      <article class="card">
+        <small>Pago único</small>
+        <h4>VF = VP × (1+i)<sup>n</sup></h4>
+        <p>Un solo movimiento en t=0 y un solo resultado en t=n.</p>
+      </article>
+      <article class="card">
+        <small>Anualidad vencida</small>
+        <h4>Una cuota A por cada periodo</h4>
+        <p>Muchos movimientos iguales, uno al final de cada periodo. Usa interés compuesto internamente.</p>
+      </article>
+      <article class="card">
+        <small>Anualidad con extras</small>
+        <h4>Cuotas + extraordinarios</h4>
+        <p>La cuota regular más pagos sueltos puntuales en los periodos que tú indiques.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= -->
+<!--  SECCIÓN: DOCUMENTACIÓN DEL USO DE IA                      -->
+<!-- ========================================================= -->
+<section class="panel" id="ia">
+  <div class="section-head">
+    <div>
+      <h2>Documentación del uso de Inteligencia Artificial</h2>
+      <p>
+        Esta sección documenta, de manera transparente, cómo usamos IA como herramienta de apoyo
+        (no de reemplazo) para construir este prototipo. Incluye los prompts, lo que la IA produjo,
+        las deficiencias detectadas y cómo las corregimos.
+      </p>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <article class="card">
+      <small>Herramienta 1</small>
+      <h4>Claude (Anthropic)</h4>
+      <p>
+        Apoyo para arquitectura general del prototipo, generación de la lógica de
+        conversión universal de tasas y la integración con los simuladores.
+      </p>
+    </article>
+    <article class="card">
+      <small>Herramienta 2</small>
+      <h4>ChatGPT</h4>
+      <p>
+        Generación inicial de texto educativo en lenguaje sencillo y propuesta
+        de la estructura de navegación del sitio.
+      </p>
+    </article>
+    <article class="card">
+      <small>Herramienta 3</small>
+      <h4>Cursor / Claude Code</h4>
+      <p>
+        Refactorización incremental del JavaScript, corrección de bugs en el
+        motor de cálculo y validaciones del formulario.
+      </p>
+    </article>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Iteración 1 · Conversión de tasas nominal con capitalización rara</h3>
+      </div>
+    </div>
+    <div class="compare-grid">
+      <article class="card">
+        <small>Prompt</small>
+        <h4>Lo que pedimos</h4>
+        <p>"Dame la fórmula para convertir una Nominal Anual Capitalización Quintumestral Vencida a una Efectiva Mensual."</p>
+      </article>
+      <article class="card">
+        <small>Respuesta inicial</small>
+        <h4>Lo que la IA devolvió</h4>
+        <p>Solo daba el caso "mensual", asumiendo 12 periodos/año y sin explicar cómo calcular los periodos para quintumestral.</p>
+      </article>
+      <article class="card">
+        <small>Qué estaba mal</small>
+        <h4>Deficiencia detectada</h4>
+        <p>No consideraba que "quintumestral" es cada 5 meses → <strong>12/5 = 2,4 periodos/año</strong>, y eso quiebra la fórmula típica.</p>
+      </article>
+      <article class="card">
+        <small>Nuevo prompt</small>
+        <h4>Cómo lo corregimos</h4>
+        <p>"Generaliza la fórmula con m = 12/meses_por_periodo y soporta valores no enteros de m. Incluye capitalización decamestral (10 meses)."</p>
+      </article>
+      <article class="card">
+        <small>Resultado final</small>
+        <h4>Mejorado</h4>
+        <p>Construimos la función <code>periodosPorAnioDesde()</code> que admite cualquier número de meses, incluyendo decimales.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Iteración 2 · Tasa anticipada en intereses compuestos</h3>
+      </div>
+    </div>
+    <div class="compare-grid">
+      <article class="card">
+        <small>Prompt</small>
+        <h4>Lo que pedimos</h4>
+        <p>"Cómo calcular valor futuro en compuesto si la tasa es anticipada."</p>
+      </article>
+      <article class="card">
+        <small>Respuesta inicial</small>
+        <h4>Lo que la IA devolvió</h4>
+        <p>Usaba directamente la fórmula VF = VP(1 + i<sub>a</sub>)<sup>n</sup> sin convertir la anticipada a vencida.</p>
+      </article>
+      <article class="card">
+        <small>Qué estaba mal</small>
+        <h4>Deficiencia detectada</h4>
+        <p>Matemáticamente incorrecto: las tasas anticipadas se aplican al inicio del periodo, no al final, y deben convertirse.</p>
+      </article>
+      <article class="card">
+        <small>Nuevo prompt</small>
+        <h4>Cómo lo corregimos</h4>
+        <p>"Primero convierte la anticipada a vencida con i<sub>v</sub> = i<sub>a</sub>/(1 − i<sub>a</sub>). Luego aplica compuesto vencida."</p>
+      </article>
+      <article class="card">
+        <small>Resultado final</small>
+        <h4>Mejorado</h4>
+        <p>El motor ahora siempre pasa por una tasa periódica vencida antes de aplicar la fórmula.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Iteración 3 · Anualidades con pagos extras</h3>
+      </div>
+    </div>
+    <div class="compare-grid">
+      <article class="card">
+        <small>Prompt</small>
+        <h4>Lo que pedimos</h4>
+        <p>"Agrega pagos extraordinarios a la fórmula de valor futuro de una anualidad vencida."</p>
+      </article>
+      <article class="card">
+        <small>Respuesta inicial</small>
+        <h4>Lo que la IA devolvió</h4>
+        <p>Simplemente sumaba el monto del extra al VF, como si no ganara intereses.</p>
+      </article>
+      <article class="card">
+        <small>Qué estaba mal</small>
+        <h4>Deficiencia detectada</h4>
+        <p>No capitalizaba los extras desde su periodo k hasta n. Eso subestima el VF.</p>
+      </article>
+      <article class="card">
+        <small>Nuevo prompt</small>
+        <h4>Cómo lo corregimos</h4>
+        <p>"Cada extra se lleva al tiempo final con (1+i)<sup>n−k</sup>. Si se pide VP, se descuenta con (1+i)<sup>−k</sup>."</p>
+      </article>
+      <article class="card">
+        <small>Resultado final</small>
+        <h4>Mejorado</h4>
+        <p>El simulador ahora diferencia aportes extras (suman) y abonos extras (restan capital) correctamente.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Iteración 4 · Cálculo de A desde un VP con pagos extras</h3>
+      </div>
+    </div>
+    <div class="compare-grid">
+      <article class="card">
+        <small>Prompt</small>
+        <h4>Lo que pedimos</h4>
+        <p>"Dada la deuda inicial y algunos abonos extras, ¿cuál es la cuota mensual fija?"</p>
+      </article>
+      <article class="card">
+        <small>Respuesta inicial</small>
+        <h4>Lo que la IA devolvió</h4>
+        <p>La típica A = VP / factor, ignorando los extras.</p>
+      </article>
+      <article class="card">
+        <small>Qué estaba mal</small>
+        <h4>Deficiencia detectada</h4>
+        <p>La cuota real debe disminuir porque los abonos extras reducen el saldo. La fórmula tenía que considerarlos.</p>
+      </article>
+      <article class="card">
+        <small>Nuevo prompt</small>
+        <h4>Cómo lo corregimos</h4>
+        <p>"Resta el valor presente de los abonos extras al VP de deuda antes de despejar A: A = (VP − ΣExtra<sub>VP</sub>) / factor."</p>
+      </article>
+      <article class="card">
+        <small>Resultado final</small>
+        <h4>Mejorado</h4>
+        <p>El simulador calcula una cuota coherente con los abonos extras registrados.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="section-head">
+      <div>
+        <h3>Iteración 5 · Interés simple con tasa efectiva</h3>
+      </div>
+    </div>
+    <div class="compare-grid">
+      <article class="card">
+        <small>Prompt</small>
+        <h4>Lo que pedimos</h4>
+        <p>"En interés simple, ¿cómo convierto una tasa efectiva al periodo de operación?"</p>
+      </article>
+      <article class="card">
+        <small>Respuesta inicial</small>
+        <h4>Lo que la IA devolvió</h4>
+        <p>Usaba la fórmula (1+i)<sup>m</sup> para elevar a "efectiva anual".</p>
+      </article>
+      <article class="card">
+        <small>Qué estaba mal</small>
+        <h4>Deficiencia detectada</h4>
+        <p>Eso es equivalencia compuesta, no proporcional. En interés simple las tasas son proporcionales, no equivalentes.</p>
+      </article>
+      <article class="card">
+        <small>Nuevo prompt</small>
+        <h4>Cómo lo corregimos</h4>
+        <p>"Para interés simple, toma la tasa periódica y escálala linealmente al periodo de operación: i × (m_cap / m_op)."</p>
+      </article>
+      <article class="card">
+        <small>Resultado final</small>
+        <h4>Mejorado</h4>
+        <p>Implementamos <code>tasaASimpleProporcionalAlPeriodo()</code> separada de la lógica compuesta.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="mini-note" style="margin-top:20px;">
+    <strong>Lección final:</strong> Una IA es rápida pero no infalible. Cada respuesta se validó contra
+    ejemplos numéricos (tests manuales y contrastes con Excel) antes de aceptarla. La responsabilidad
+    financiera es humana — la IA solo acelera el trabajo.
+  </div>
+</section>
+
+    <section class="panel" id="contacto" style="text-align:center;">
+      <div class="section-head" style="justify-content:center;">
+        <div>
+          <h2>¿Listo para simular?</h2>
+          <p>Abre el simulador integrado con los tres motores conectados entre sí.</p>
+        </div>
+      </div>
+      <div class="hero-actions" style="justify-content:center;">
+        <a href="simulador.html" class="btn btn-primary">Ir al simulador</a>
+        <a href="#inicio" class="btn btn-secondary">Volver arriba</a>
+      </div>
+    </section>
+
+    </div><!-- /#inicioView -->
+  </main>
+
+  <footer>
+    Finanzas Pro · Herramienta educativa para clientes del banco · Construida con apoyo de IA, validada por humanos · 2026
+  </footer>
+
+  <script src="logica.js"></script>
+</body>
+</html>
